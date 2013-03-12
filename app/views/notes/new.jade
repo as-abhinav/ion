@@ -1,0 +1,22 @@
+ul.breadcrumb
+    li
+       a(href='/') Home
+       span.divider /
+    li
+       != linkTo('notes', pathTo.notes())
+       span.divider /
+    li.active
+       a(href='#') New notes
+
+.page-header
+  h1 New notes
+
+- var form = formFor(notes, {action: pathTo.notes(), method: 'POST', id: "notes_form", class: 'form-horizontal'})
+
+!= form.begin()
+include _form
+.form-actions
+  != form.submit('<i class="icon-ok icon-white"></i>  Create notes', {class: 'btn btn-primary'})
+  span= ' or '
+  != linkTo('Cancel', pathTo.notes(), {class: 'btn'})
+!= form.end()

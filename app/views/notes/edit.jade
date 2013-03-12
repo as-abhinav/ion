@@ -1,0 +1,22 @@
+ul.breadcrumb
+      li
+        a(href='/') Home
+        span.divider /
+      li
+        != linkTo('notes', pathTo.notes())
+        span.divider /
+      li.active
+        a(href='#') Edit notes
+
+.page-header
+  h1 Edit notes
+
+- var form = formFor(notes, {action: pathTo.notes(notes), method: 'PUT', id: "notes_form", class: 'form-horizontal'});
+
+!= form.begin()
+include _form
+.form-actions
+  != form.submit('<i class="icon-ok icon-white"></i> Update notes', {class: 'btn btn-primary'})
+  span= ' or '
+  != linkTo('Cancel', pathTo.notes(notes), {class: 'btn'})
+!= form.end()

@@ -1,0 +1,39 @@
+ul.breadcrumb
+    li
+       a(href='/') Home
+       span.divider /
+    li.active
+       != linkTo('notes', path_to.notes())
+
+.page-header
+  h1 Index of notes
+
+
+.row
+  .span12
+    p
+      //!= linkTo('<i class="icon-plus icon-white"></i> New notes', path_to.new_notes(), {class: 'btn btn-primary'})
+
+- if (notes.length) {
+.row
+  .span12
+     table.table.table-striped
+       thead
+         tr
+           th ID
+           th.span3 Actions
+       tbody
+         - notes.forEach(function (notes) {
+         tr
+           td
+             != linkTo('notes #' + notes.id, path_to.notes(notes))
+           td
+             != linkTo('<i class="icon-edit"></i> Edit', pathTo.edit_notes(notes), {class: 'btn btn-mini'}) + ' '
+             != linkTo('<i class="icon-remove icon-white"></i> Delete', pathTo.notes(notes), {class: 'btn btn-mini btn-danger', method: 'delete', remote: true, jsonp: '(function (u) {location.href = u;})'})
+         - });
+- } else{
+.row
+  .span12
+     p.alert.alert-block.alert-info
+        strong No notes were found.
+- }
